@@ -1,0 +1,5 @@
+Assets/**/*.*
+Library
+ProjectSettings
+UnityPackageManager
+!/Assets/gsPackageExporter/Editor/gsPackageExporter.cs
