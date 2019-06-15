@@ -1,6 +1,7 @@
 # gsPackageExporter
 
 UnityPackageを出力するEditor拡張です
+
 最新版 [v0.1](https://github.com/gatosyocora/gsPackageExporter/releases)
 
 ## 使い方
