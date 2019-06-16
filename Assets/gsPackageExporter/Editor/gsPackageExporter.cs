@@ -110,16 +110,59 @@ namespace Gatosyocora
             if (isCreateGitignore)
             {
                 var gitignoreFilePath = Path.GetDirectoryName(saveFilePath) + "\\.gitignore";
-                using (var writer = new StreamWriter(gitignoreFilePath))
-                {
-                    //一度すべて除外するようにしてパッケージに含まれるもののみ例外にしていく
-                    writer.WriteLine("*");
-                    
-                    foreach (var exportAssetPath in exportAssetPaths)
-                        writer.WriteLine("!" + exportAssetPath);
+                CreateGitignoreToUnityProject(gitignoreFilePath, exportAssetPaths);
+            }
 
-                    writer.Close();
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="saveFilePath"></param>
+        /// <param name="containFilePaths">Assets/から始まるgit管理するファイルのパス</param>
+        /// <returns></returns>
+        private bool CreateGitignoreToUnityProject(string saveFilePath, string[] containFilePaths)
+        {
+            using (var writer = new StreamWriter(saveFilePath))
+            {
+                var br = Environment.NewLine;
+
+                //一度すべて除外するようにする
+                writer.WriteLine("# First all ignore");
+                writer.WriteLine("*");
+
+                writer.WriteLine("");
+
+                // 管理下にするファイルは追跡するようにする
+                writer.WriteLine("# Not ignore files");
+                foreach (var filePath in containFilePaths)
+                {
+                    var containFilePath = filePath.Replace('\\', '/'); // 追跡したいファイル
+
+                    var folderNames = Path.GetDirectoryName(containFilePath).Split('/');
+                    
+                    // 最終的に追跡したいファイルまでのフォルダそれぞれを追跡対象にして
+                    // それらのフォルダ内のファイルは除外にする
+                    for (int i = 0; i < folderNames.Length; i++)
+                    {
+                        var path = string.Join("/", folderNames.Where((name, index) => index <= i).ToArray());
+                        writer.WriteLine("!/" + path + "/");
+                        writer.WriteLine("/" + path + "/*");
+                    }
+
+                    writer.WriteLine("!/" + containFilePath);
                 }
+                
+                writer.WriteLine("");
+
+                // その他必要そうなファイルは追跡するようにする
+                writer.WriteLine("# Other not ignore files");
+                writer.WriteLine(   "!LICENSE" + br
+                                    + "!README.md" + br
+                                    + "!.git*");
+
+                writer.Close();
             }
 
             return true;
