@@ -1,5 +1,13 @@
-Assets/**/*.*
-Library
-ProjectSettings
-UnityPackageManager
+*
+
+!/Assets/
+/Assets/*
+!/Assets/gsPackageExporter/
+/Assets/gsPackageExporter/*
+!/Assets/gsPackageExporter/Editor/
+/Assets/gsPackageExporter/Editor/*
 !/Assets/gsPackageExporter/Editor/gsPackageExporter.cs
+
+!LICENSE
+!README.md
+!.git*
