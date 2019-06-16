@@ -4,6 +4,8 @@ UnityPackageを出力するEditor拡張です
 
 最新版 [v0.2](https://github.com/gatosyocora/gsPackageExporter/releases)
 
+![sample](https://github.com/gatosyocora/gsPackageExporter/blob/img/img/gsPackageExporter_sampleimg.png)
+
 ## 使い方
 1. gsPackageExporterを使いたいProjectにインポートします
 2. Assetsフォルダ内のアセットでUnityPackageとして出力したいものを選択します（複数選択可）
